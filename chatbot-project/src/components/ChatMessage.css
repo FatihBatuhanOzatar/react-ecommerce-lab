@@ -1,0 +1,16 @@
+
+/* Tek bir mesaj satırı */
+.message-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Robot mesajlarını sola, kullanıcıyı sağa yasla */
+.message-row.user {
+  justify-content: flex-end;
+}
+
+.message-row.robot {
+  justify-content: flex-start;
+}
