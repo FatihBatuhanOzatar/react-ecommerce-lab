@@ -5,13 +5,16 @@ import './App.css'
 import {Routes, Route} from 'react-router';
 import { HomePage } from './pages/HomePage';
 
+import { CheckoutPage } from './pages/CheckoutPage.jsx';
+
+
 function App() {
   //const [count, setCount] = useState(0)
 
   return (
     <Routes>
       <Route index element={<HomePage />}></Route>
-      <Route path="checkout" element={<div>test checkout page</div>}></Route>
+      <Route path="checkout" element={<CheckoutPage />}></Route>
     </Routes>
   )
 }
