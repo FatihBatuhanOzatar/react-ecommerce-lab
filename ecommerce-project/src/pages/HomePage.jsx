@@ -2,17 +2,13 @@ import './HomePage.css';
 import { Header } from '../components/Header.jsx';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-export function HomePage(){
+export function HomePage({cart}){
   const [products, setProducts]=useState([]);
-  const [cart, setCart]=useState([]);
+  
   useEffect(()=>{
-    axios.get('http://localhost:3000/api/products')
+    axios.get('/api/products')
     .then((response)=>{
       setProducts(response.data);
-    });
-
-    axios.get('http://localhost:3000/api/cart-items').then((response)=>{
-      setCart(response.data);
     });
   }, []); 
 
@@ -36,7 +32,7 @@ export function HomePage(){
 
                 <div className="product-rating-container">
                   <img className="product-rating-stars"
-                    src={`images/ratings/rating-${product.  rating.stars*10}.png`} />
+                    src={`images/ratings/rating-${product.rating?.stars*10}.png`} />
                   <div className="product-rating-count link-primary">
                     {product.rating.count}
                   </div>
