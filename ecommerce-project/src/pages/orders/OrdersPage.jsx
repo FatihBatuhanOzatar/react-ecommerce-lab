@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useState, useEffect, Fragment } from 'react';
 import './OrdersPage.css';
 import dayjs from 'dayjs';
-import { formatMoney } from '../../money.js';
+import { formatMoney } from '../utils/money.js';
 
 export function OrdersPage({cart}){
   const [orders, setOrders]=useState([]);
@@ -46,14 +46,14 @@ export function OrdersPage({cart}){
                 <div className="order-details-grid">
                   {order.products.map((orderProduct)=>{
                     return(
-                      <Fragment key={orderProduct.product.id}>
+                      <Fragment key={orderProduct.productId}>
                         <div className="product-image-container">
-                          <img src= {orderProduct.product.image} />
+                          <img src= {orderProduct.product?.image} alt={orderProduct.product?.name} />
                         </div>
 
                         <div className="product-details">
                           <div className="product-name">
-                            {orderProduct.product.name}
+                            {orderProduct.product?.name}
                           </div>
                           <div className="product-delivery-date">
                             Arriving on: {dayjs(orderProduct.estimatedDeliveryTimeMs).format('MMMM D')}
@@ -68,7 +68,7 @@ export function OrdersPage({cart}){
                         </div>
 
                         <div className="product-actions">
-                          <a href="/tracking">
+                          <a href={`/tracking/${order.id}/${orderProduct.productId}`}>
                             <button className="track-package-button button-secondary">
                               Track package
                             </button>

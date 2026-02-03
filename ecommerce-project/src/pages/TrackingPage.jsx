@@ -1,10 +1,27 @@
-import { Header } from '../components/Header.jsx';
-import './TrackingPage.css';
-export function TrackingPage(){
-  return(
+import { useParams } from 'react-router'; // URL'deki parametreleri okumak için
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import dayjs from 'dayjs';
+
+export function TrackingPage({ cart }) {
+  const { orderId, productId } = useParams(); // URL'deki ID'leri aldık
+  const [trackingData, setTrackingData] = useState(null);
+
+  useEffect(() => {
+    async function fetchTracking() {
+      // Backend'den bu sipariş ve ürüne ait özel takip bilgisini istiyoruz
+      const response = await axios.get(`/api/orders/${orderId}/products/${productId}`);
+      setTrackingData(response.data);
+    }
+    fetchTracking();
+  }, [orderId, productId]);
+
+  if (!trackingData) return <div>Loading tracking details...</div>;
+
+  return (
     <>
       <title>Tracking</title>
-      <Header />
+      <Header cart={cart} />
 
       <div className="tracking-page">
         <div className="order-tracking">
@@ -13,34 +30,21 @@ export function TrackingPage(){
           </a>
 
           <div className="delivery-date">
-            Arriving on Monday, June 13
+            Arriving on {dayjs(trackingData.estimatedDeliveryTimeMs).format('dddd, MMMM D')}
           </div>
 
           <div className="product-info">
-            Black and Gray Athletic Cotton Socks - 6 Pairs
+            {trackingData.product.name}
           </div>
 
           <div className="product-info">
-            Quantity: 1
+            Quantity: {trackingData.quantity}
           </div>
 
-          <img className="product-image" src="images/products/athletic-cotton-socks-6-pairs.jpg" />
+          <img className="product-image" src={trackingData.product.image} />
 
-          <div className="progress-labels-container">
-            <div className="progress-label">
-              Preparing
-            </div>
-            <div className="progress-label current-status">
-              Shipped
-            </div>
-            <div className="progress-label">
-              Delivered
-            </div>
-          </div>
-
-          <div className="progress-bar-container">
-            <div className="progress-bar"></div>
-          </div>
+          {/* İlerleme çubuğu ve etiketleri buradaki verilere göre güncellenebilir */}
+          {/* ... */}
         </div>
       </div>
     </>
