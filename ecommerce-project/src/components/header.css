@@ -1,52 +1,69 @@
+/* =========================================
+   Header Container
+   ========================================= */
 .header {
-  background-color: rgb(105, 105, 29);
+  /* İsteğine uygun olarak mevcut rengi korudum */
+  background-color: rgb(58, 58, 58);
   color: white;
-  padding-left: 15px;
-  padding-right: 15px;
+  
+  /* Sağ-sol padding ayarı */
+  padding-left: 20px;
+  padding-right: 20px;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
 
+  /* Header'ı sabitleme ve derinlik katma */
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   height: 60px;
+  z-index: 1000; /* Diğer her şeyin üstünde kalsın */
+  
+  /* Hafif bir gölge ile header'ı içerikten ayıralım */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+/* =========================================
+   Left Section (Logo)
+   ========================================= */
 .header .left-section {
-  width: 208px;
+  width: 180px; /* Gereksiz genişliği biraz kıstım */
+  display: flex;
+  align-items: center;
 }
 
-@media (max-width: 800px) {
-  .header .left-section {
-    width: unset;
-  }
-}
-
+/* Linkler için genel reset ve hover efekti */
 .header .header-link {
-  display: inline-block;
-  padding: 6px 9.5px;
-  border-radius: 2px;
+  display: inline-flex; /* İçerikleri ortalamak için */
+  align-items: center;
+  padding: 8px 10px;
+  border-radius: 4px;
   cursor: pointer;
   text-decoration: none;
-  border: 1px solid rgba(0, 0, 0, 0);
+  color: white;
+  border: 1px solid transparent; /* Zıplamayı önlemek için rezerve */
+  transition: background-color 0.2s;
 }
 
+/* Eski "border" efekti yerine modern highlight efekti */
 .header .header-link:hover {
-  border: 1px solid white;
+  background-color: rgba(255, 255, 255, 0.15); /* Hafif beyaz parlama */
+  border-color: transparent;
 }
 
 .header .logo {
-  height: 45px;
-  margin-top: 1px;
+  height: 50px; /* Header 60px iken 65px taşma yapar, düzelttim */
+  object-fit: contain;
 }
 
 .header .mobile-logo {
   display: none;
 }
 
+/* Responsive Logo */
 @media (max-width: 675px) {
   .header .logo {
     display: none;
@@ -54,96 +71,268 @@
 
   .header .mobile-logo {
     display: block;
-    height: 26px;
-    margin-top: 1px;
+    height: 30px;
+  }
+  
+  .header .left-section {
+    width: auto; /* Mobilde genişlik serbest kalsın */
+    margin-right: 10px;
   }
 }
 
+/* =========================================
+   Middle Section (Search Bar)
+   ========================================= */
 .header .middle-section {
   flex: 1;
-  max-width: 850px;
-  margin-left: 10px;
-  margin-right: 10px;
+  max-width: 800px; /* Çok geniş ekranlarda arama çubuğu sonsuza uzamasın */
+  margin: 0 20px;
   display: flex;
+  position: relative;
 }
 
 .header .search-bar {
   flex: 1;
-  width: 0;
-  font-size: 16px;
-  height: 38px;
+  width: 0; /* Flexbox içinde düzgün küçülmesi için */
+  font-size: 15px;
+  height: 40px; /* Butonla aynı yükseklik */
   padding-left: 15px;
   border: none;
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
+  
+  /* Sol tarafları yuvarla */
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
+  
+  outline: none; /* Tıklayınca çıkan mavi çerçeveyi kaldıralım (isteğe bağlı focus ekleyebiliriz) */
+}
+
+.header .search-bar:focus {
+  /* Focus olduğunda hafif bir turuncu border ekleyebiliriz (Amazon tarzı) */
+  box-shadow: inset 0 0 0 2px #1779b6; 
 }
 
 .header .search-button {
-  background-color: rgb(18, 74, 114);
+  /* Home page'deki "Sepete Ekle" butonuyla uyumlu renk */
+  background-color: #1779b6; 
   border: none;
   width: 45px;
-  height: 40px;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
+  height: 40px; /* Input ile eşitlendi */
+  
+  /* Sağ tarafları yuvarla */
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  
   flex-shrink: 0;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.2s;
+}
+
+.header .search-button:hover {
+  background-color: #f3a847; /* Hover'da biraz koyulaşsın */
 }
 
 .header .search-icon {
-  height: 20px;
-  margin-left: 0px;
-  margin-top: 3px;
+  height: 22px;
+  opacity: 0.8; /* İkonu biraz yumuşat */
 }
 
+/* =========================================
+   Right Section (Cart & Orders)
+   ========================================= */
 .header .right-section {
-  width: 180px;
+  width: auto; /* Sabit genişlik yerine içeriğe göre */
+  min-width: 160px;
   flex-shrink: 0;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px; /* Öğeler arası boşluk */
 }
 
 .header .orders-link {
-  color: white;
-
   display: flex;
-  align-items: center;
-  padding-left: 13px;
-  padding-right: 13px;
+  flex-direction: column; /* Metinleri alt alta almak istersen */
+  align-items: flex-start;
+  justify-content: center;
+  line-height: 1.2;
 }
 
+/* "Returns" & "Orders" gibi iki satırlı yapı için opsiyonel */
 .header .orders-text {
-  display: block;
-  font-size: 15px;
-  font-weight: 700;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
 }
 
 .header .cart-link {
-  color: white;
+  position: relative; /* Badge konumlandırması için */
   display: flex;
   align-items: center;
-  position: relative;
 }
 
 .header .cart-icon {
-  width: 38px;
+  width: 35px;
+  height: auto;
 }
 
 .header .cart-text {
-  margin-left: 5px;
-  font-size: 15px;
-  font-weight: 700;
-}
-
-.header .cart-quantity {
-  color: rgb(8, 73, 107);
+  margin-left: 2px;
   font-size: 14px;
   font-weight: 700;
+  margin-top: 10px; /* İkonun altına hizalamak için */
+}
 
+/* Modern Bildirim Rozeti (Badge) Tasarımı */
+.header .cart-quantity {
   position: absolute;
-  top: 8.5px;
-  right: 46px;
+  top: 0px;
+  left: 20px; /* İkonun sağ üst köşesine denk gelecek şekilde ayarla */
+  
+  background-color: #d9534f; /* Dikkat çekici kırmızı */
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  
+  /* Yuvarlak (Pill) Şekil */
+  min-width: 18px;
+  height: 18px;
+  border-radius: 9px;
+  padding: 0 4px;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  /* Eski kodundaki absolute konumlandırmayı ezdik, bu daha güvenli */
+  z-index: 2;
+}
 
-  width: 26px;
+/* =========================================
+   Responsive Adjustments
+   ========================================= */
+@media (max-width: 800px) {
+  .header .orders-text {
+    display: none; /* Mobilde yazıları gizleyip sadece ikon bırakabilirsin */
+  }
+  
+  .header .search-bar {
+     /* Mobilde arama çubuğu biraz küçülebilir */
+     font-size: 14px;
+  }
+}
+
+@media (max-width: 575px) {
+  /* Mobilde header düzeni */
+  .header {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  
+  .header .cart-text {
+    display: none; /* Mobilde "Sepet" yazısını gizle */
+  }
+  
+  .header .middle-section {
+    margin: 0 10px;
+  }
+}
+
+/* Sol Bölüm Düzeni */
+.left-section {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* İkon ve logo arasına boşluk */
+}
+
+/* Menü İkonu Boyutu ve Cursor */
+.menu-icon {
+  width: 25px; /* İdeal boyut */
+  height: auto;
+  cursor: pointer; /* Fare gelince el işareti çıkar */
+  display: block;
+  transition: opacity 0.2s;
+}
+
+.menu-icon:hover {
+  opacity: 0.8;
+}
+
+/* --- PROFESYONEL SIDEBAR --- */
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 300px; /* Biraz daha geniş ve ferah */
+  height: 100%;
+  background-color: #fff;
+  z-index: 1001;
+  box-shadow: 5px 0 15px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  color: #111;
+  /* Soldan kayarak gelme animasyonu */
+  transform: translateX(0);
+  transition: transform 0.3s ease-out;
+}
+
+.sidebar-header {
+  background-color: #353535; /* Amazon koyu mavisi ile uyumlu */
+  color: white;
+  padding: 15px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.close-sidebar {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.sidebar-content {
+  padding: 20px 0;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 25px;
+  text-decoration: none;
+  color: #111;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.sidebar-item:hover {
+  background-color: #eaeded; /* Fare üzerindeyken hafif gri */
+}
+
+.sidebar-item .icon {
+  margin-right: 15px;
+  font-size: 20px;
+  width: 24px;
   text-align: center;
+}
+
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Daha belirgin karartma */
+  z-index: 1000;
+  cursor: pointer;
 }

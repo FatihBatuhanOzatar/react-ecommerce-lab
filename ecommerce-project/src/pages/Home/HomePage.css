@@ -1,34 +1,33 @@
+/* =========================================
+   Home Page Container
+   ========================================= */
 .home-page {
   margin-top: 60px;
+  /* Kenarlardan biraz boşluk bırakarak içeriğin yapışmasını engelliyoruz */
+  padding: 0 20px; 
 }
 
+/* =========================================
+   Products Grid Layout
+   ========================================= */
 .home-page .products-grid {
   display: grid;
+  
+  /* Ürünler arasına modern bir boşluk (gap) ekliyoruz. 
+     Eskiden border ile ayırıyorduk, şimdi boşluk ile ayırıyoruz. */
+  gap: 20px; 
 
-  /* - In CSS Grid, 1fr means a column will take up the
-       remaining space in the grid.
-     - If we write 1fr 1fr ... 1fr; 8 times, this will
-       divide the grid into 8 columns, each taking up an
-       equal amount of the space.
-     - repeat(8, 1fr); is a shortcut for repeating "1fr"
-       8 times (instead of typing out "1fr" 8 times).
-       repeat(...) is a special property that works with
-       display: grid; */
+  /* Başlangıç (Geniş ekran) varsayılanı */
   grid-template-columns: repeat(8, 1fr);
 }
 
-/* @media is used to create responsive design (making the
-   website look good on any screen size). This @media
-   means when the screen width is 2000px or less, we
-   will divide the grid into 7 columns instead of 8. */
+/* Responsive Breakpoints (Senin mantığını korudum, sadece gap uyumu sağladım) */
 @media (max-width: 2000px) {
   .home-page .products-grid {
     grid-template-columns: repeat(7, 1fr);
   }
 }
 
-/* This @media means when the screen width is 1600px or
-   less, we will divide the grid into 6 columns. */
 @media (max-width: 1600px) {
   .home-page .products-grid {
     grid-template-columns: repeat(6, 1fr);
@@ -56,6 +55,8 @@
 @media (max-width: 575px) {
   .home-page .products-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 10px; /* Mobilde boşlukları biraz daraltalım */
+    padding: 0 10px; /* Mobilde kenar boşluğunu azaltalım */
   }
 }
 
@@ -65,93 +66,165 @@
   }
 }
 
+/* =========================================
+   Product Card (Professional Look)
+   ========================================= */
 .home-page .product-container {
-  padding-top: 40px;
-  padding-bottom: 25px;
-  padding-left: 25px;
-  padding-right: 25px;
-
-  border-right: 1px solid rgb(240, 240, 240);
-  border-bottom: 1px solid rgb(240, 240, 240);
-
+  /* Kart Tasarımı: Beyaz arka plan, ince kenarlık ve hafif yuvarlatılmış köşeler */
+  background-color: #fff;
+  border: 1px solid #e5e5e5; /* Daha yumuşak bir gri */
+  border-radius: 8px; /* Modern görünüm için şart */
+  
+  padding: 20px;
+  
   display: flex;
   flex-direction: column;
+  
+  /* Geçiş efekti: Hover durumunda animasyon için */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  
+  /* Kutu içeriğinin taşmasını engelle */
+  overflow: hidden;
+  position: relative;
+}
+
+/* Hover Efekti: Ürünün üzerine gelince hafifçe yukarı kalkar ve gölgesi artar */
+.home-page .product-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border-color: transparent; /* Hover'da border yerine gölge konuşsun */
 }
 
 .home-page .product-image-container {
   display: flex;
   justify-content: center;
   align-items: center;
-
   height: 180px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
+  
+  /* Resimlerin oranını korumak için container'a padding ekleyebiliriz */
+  padding: 10px;
 }
 
 .home-page .product-image {
-  /* Images overflow the container by default. To prevent this, set
-     max-width and max-height to 100% to stay inside container. */
   max-width: 100%;
   max-height: 100%;
-  border-radius: 5px;
+  object-fit: contain; /* Resmin deforme olmasını engeller */
+  mix-blend-mode: multiply; /* Eğer resimlerin arka planı beyazsa, kartla bütünleşmesini sağlar */
 }
 
+/* =========================================
+   Product Details
+   ========================================= */
 .home-page .product-name {
-  height: 40px;
-  margin-bottom: 5px;
+  /* Sabit yükseklik yerine esnek yapı, ancak çok uzun isimleri sınırlayalım */
+  height: 44px; /* Yaklaşık 2 satır */
+  margin-bottom: 8px;
+  font-size: 15px;
+  line-height: 1.4;
+  color: #0F1111; /* Amazon siyahı */
+  
+  /* Uzun metinleri 2 satırda kesip ... koymak için (Webkit destekli tarayıcılar) */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .home-page .product-rating-container {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .home-page .product-rating-stars {
   width: 100px;
   margin-right: 6px;
+  
+  /* Eğer SVG veya yazı kullanıyorsan rengi buradan alır */
+  color: var(--color-rating-star); 
+  
+  /* Eğer maskeleme (mask) veya ikon fontu kullanıyorsan fill özelliği */
+  fill: var(--color-rating-star);
+  
+  /* Resimlerin dikeyde ortalanması için */
+  display: flex; 
+  align-items: center; 
 }
 
 .home-page .product-rating-count {
-  color: rgb(25, 71, 135);
-  cursor: auto;
-  margin-top: 3px;
+  color: rgb(0, 113, 133); /* Amazon link mavisi */
+  font-size: 14px;
+  cursor: pointer; /* Tıklanabilir hissi verelim */
+}
+
+.home-page .product-rating-count:hover {
+  color: #C7511F; /* Hover'da turuncu (isteğe bağlı) */
+  text-decoration: underline;
 }
 
 .home-page .product-price {
   font-weight: 700;
+  font-size: 18px; /* Fiyatı biraz daha belirgin yapalım */
+  color: #0F1111;
   margin-bottom: 10px;
 }
 
+/* Ondalık kısımları (kuruş) küçültmek istersen HTML yapına span eklemen gerekir, 
+   şimdilik genel fontu büyüttüm. */
+
 .home-page .product-quantity-container {
-  margin-bottom: 17px;
+  margin-bottom: 15px;
 }
 
+/* Ürün kartı içindeki boşluğu doldurur, butonu en alta iter */
 .home-page .product-spacer {
   flex: 1;
 }
 
+/* =========================================
+   Interactions & Buttons
+   ========================================= */
 .home-page .added-to-cart {
   color: rgb(25, 135, 84);
-  font-size: 16px;
-
+  font-size: 14px;
+  font-weight: 500;
   display: flex;
   align-items: center;
   margin-bottom: 8px;
-
-  /* At first, the "Added to cart" message will
-     be invisible. Use JavaScript to change the
-     opacity and make it visible. */
-  opacity: 0;
+  opacity: 0; /* JS ile kontrol edilecek */
+  transition: opacity 0.3s ease;
 }
 
 .home-page .added-to-cart img {
-  height: 19px;
+  height: 18px;
   margin-right: 6px;
 }
 
 .home-page .add-to-cart-button {
   width: 100%;
-  padding: 8px;
-  height: 34px;
-  margin-top: 1px;
+  padding: 10px 12px;
+  
+  /* Daha modern buton stili */
+  background-color: #FFD814; /* Standart E-ticaret sarısı (Genel temaya uygun) */
+  border: 1px solid #FCD200;
+  border-radius: 20px; /* Hap şeklinde buton (Pill shape) */
+  
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #0F1111;
+  
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.home-page .add-to-cart-button:hover {
+  background-color: #F7CA00;
+  box-shadow: 0 2px 5px rgba(213, 217, 217, 0.5);
+}
+
+.home-page .add-to-cart-button:active {
+  transform: scale(0.98); /* Tıklama hissi */
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
 }

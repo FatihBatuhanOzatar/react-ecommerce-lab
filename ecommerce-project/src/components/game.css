@@ -1,0 +1,122 @@
+.game-overlay {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0, 0.70); z-index: 2000;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.game-box {
+  width: 90%; max-width: 500px; height: 600px;
+  background: #faf3d3; border-radius: 20px; position: relative;
+  overflow: hidden; border: 4px solid #232f3e;
+}
+
+.game-stats {
+  padding: 15px; display: flex; justify-content: space-between;
+  background: #232f3e; color: white; font-weight: bold; font-size: 20px;
+}
+
+.game-area { position: relative; height: 100%; width: 100%; }
+
+.basket {
+  position: absolute; bottom: 40px; transform: translateX(-50%);
+  font-size: 50px; transition: left 0.1s linear;
+}
+
+.item {
+  position: absolute; font-size: 35px; transform: translateX(-50%);
+}
+
+.game-modal {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  background: white; padding: 30px; border-radius: 15px; text-align: center;
+  width: 80%; box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 2001;
+}
+
+.coupon-box {
+  background: #f3a847; padding: 10px; border: 2px dashed #000;
+  margin: 15px 0; font-weight: bold; font-size: 22px;
+}
+
+.game-btn {
+  background: #232f3e; color: white; border: none; padding: 10px 20px;
+  border-radius: 5px; cursor: pointer; font-size: 16px;
+}
+
+.exit-btn {
+  position: absolute; top: 70px; right: 20px; background: red;
+  color: white; border: none; border-radius: 50%; width: 30px; height: 30px;
+  cursor: pointer; font-weight: bold;
+}
+
+/* Zemin Tasarımı */
+.game-floor {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 15px;
+  background: linear-gradient(to bottom, #5d4037, #3e2723); /* Toprak rengi */
+  border-top: 3px solid #4caf50; /* Üstünde ince yeşil çim hattı */
+}
+
+/* Kar ve Parıltı Efekti */
+.particle {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  pointer-events: none; /* Mouse ile etkileşime girmesin */
+  filter: blur(1px);
+}
+
+/* Oyun Alanı: Çok açık, göz yormayan tek renk */
+.game-area {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  background-color: #f8f9fa; /* Çok açık gri/beyaz */
+  overflow: hidden;
+}
+
+/* Sepet: Şeffaflığı giderildi ve görünürlük artırıldı */
+.basket {
+  position: absolute;
+  bottom: 15px; 
+  transform: translateX(-50%);
+  font-size: 55px; /* Biraz daha büyüttük */
+  z-index: 20; /* Kar tanelerinin ve eşyaların önünde olsun */
+  opacity: 1 !important; /* Kesinlikle opak */
+  user-select: none;
+}
+
+/* Kapatma Butonu (Sağ Üst) */
+.close-game-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: rgba(0, 0, 0, 0.1);
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.close-game-btn:hover {
+  background: rgba(255, 0, 0, 0.2);
+  color: red;
+}
+
+/* Kar tanelerinin rengini biraz daha belirgin yapalım (arka plan açık olduğu için) */
+.particle {
+  position: absolute;
+  background: #d1d9e6; /* Hafif maviye çalan gri karlar */
+  border-radius: 50%;
+  pointer-events: none;
+}

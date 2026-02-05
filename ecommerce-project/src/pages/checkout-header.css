@@ -1,9 +1,18 @@
+/* =========================================
+   Checkout Header Container
+   ========================================= */
 .checkout-header {
   height: 60px;
-  padding-left: 30px;
-  padding-right: 30px;
-  background-color: white;
-
+  padding-left: 20px;
+  padding-right: 20px;
+  
+  /* Arka planı koyu lacivert yapıyoruz ki beyaz logo görünsün */
+  background-color: #232f3e; /* Amazon tarzı koyu, profesyonel mavi/gri tonu */
+  /* Alternatif daha canlı mavi istersen: #1e3a5f kullanabilirsin */
+  
+  /* Altındaki çizgiyi kaldırdım, koyu header'da gerek yok */
+  border-bottom: none; 
+  
   display: flex;
   justify-content: center;
 
@@ -12,6 +21,9 @@
   left: 0;
   right: 0;
   z-index: 1000;
+  
+  /* Hafif gölge ekleyerek sayfadan ayıralım */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
 .checkout-header .header-content {
@@ -20,25 +32,29 @@
 
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
+/* =========================================
+   Left Section (Logo)
+   ========================================= */
 .checkout-header .checkout-header-left-section {
   width: 200px;
+  display: flex;
+  align-items: center;
 }
 
 .checkout-header .logo {
-  height: 26px;
-  margin-top: 0px;
+  height: 35px; /* Logoyu biraz daha belirgin kıldım */
+  object-fit: contain;
+  margin-top: 4px;
 }
 
 .checkout-header .mobile-logo {
   display: none;
 }
 
-/* @media is used to create responsive design (making the
-   website look good on any screen size). This @media
-   means when the screen width is 575px or less, different
-   styles (inside the {...}) will be applied. */
+/* Mobilde logo ayarı */
 @media (max-width: 575px) {
   .checkout-header .checkout-header-left-section {
     width: auto;
@@ -50,56 +66,80 @@
 
   .checkout-header .mobile-logo {
     display: inline-block;
-    height: 26px;
+    height: 30px;
+    margin-top: 4px;
   }
 }
 
+/* =========================================
+   Middle Section (Title)
+   ========================================= */
 .checkout-header .checkout-header-middle-section {
   flex: 1;
   flex-shrink: 0;
   text-align: center;
 
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 500;
+  
+  /* Arka plan koyu olduğu için yazıyı beyaz yapıyoruz */
+  color: white;
 
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .checkout-header .return-to-home-link {
-  color: rgb(25, 135, 84);
-
+  /* Linki koyu mavide okunur olması için açık renk yapıyoruz */
+  color: #ffffff; 
   text-decoration: none;
   cursor: pointer;
+  opacity: 0.9; /* Hafif transparanlık daha şık durur */
+  transition: opacity 0.2s;
+}
+
+.checkout-header .return-to-home-link:hover {
+  text-decoration: underline;
+  opacity: 1;
+  color: #febd69; /* Hover olunca Amazon sarısı parlasın */
 }
 
 @media (max-width: 1000px) {
   .checkout-header .checkout-header-middle-section {
-    font-size: 20px;
-    margin-right: 60px;
-  }
-
-  .checkout-header .return-to-home-link {
-    font-size: 20px;
+    font-size: 18px;
+    /* Mobilde sağ taraftaki ikonla çakışmaması için biraz margin */
+    margin-right: 0; 
   }
 }
 
 @media (max-width: 575px) {
   .checkout-header .checkout-header-middle-section {
-    margin-right: 5px;
+    font-size: 16px;
+    margin-left: 10px;
+    margin-right: 10px;
   }
 }
 
+/* =========================================
+   Right Section (Secure Icon)
+   ========================================= */
 .checkout-header .checkout-header-right-section {
   text-align: right;
   width: 200px;
   display: flex;
   align-items: center;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .checkout-header .checkout-header-right-section img {
-  height: 32px;
+  height: 28px;
+  
+  /* ÖNEMLİ: Kilit ikonun muhtemelen gri/siyah renktedir.
+     Arka plan lacivert olunca görünmez. 
+     Bu filtre ikonu beyaza çevirir. */
+  filter: invert(1) brightness(100%);
+  opacity: 0.8;
 }
 
 @media (max-width: 1000px) {
